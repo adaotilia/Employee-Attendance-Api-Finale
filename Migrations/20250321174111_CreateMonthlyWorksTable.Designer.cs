@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Employee_Attendance_Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employee_Attendance_Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250321174111_CreateMonthlyWorksTable")]
+    partial class CreateMonthlyWorksTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +58,7 @@ namespace Employee_Attendance_Api.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Employee_Attendance_Api.Models.MonthlyWork", b =>
@@ -81,7 +84,7 @@ namespace Employee_Attendance_Api.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("MonthlyWorks", (string)null);
+                    b.ToTable("MonthlyWorks");
                 });
 
             modelBuilder.Entity("Employee_Attendance_Api.Models.WorkHours", b =>
@@ -107,7 +110,7 @@ namespace Employee_Attendance_Api.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("WorkHours", (string)null);
+                    b.ToTable("WorkHours");
                 });
 
             modelBuilder.Entity("Employee_Attendance_Api.Models.Employee", b =>
