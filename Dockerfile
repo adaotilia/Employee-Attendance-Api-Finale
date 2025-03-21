@@ -4,7 +4,8 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER $APP_UID
 WORKDIR /app
-EXPOSE 8080
+ENV PORT=8080
+EXPOSE $PORT
 
 
 # This stage is used to build the service project
@@ -20,12 +21,10 @@ RUN dotnet build "./Employee Attendance Api.csproj" -c $BUILD_CONFIGURATION -o /
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Employee Attendance Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Employee Attendance Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish 
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
-
-
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Employee Attendance Api.dll"]
