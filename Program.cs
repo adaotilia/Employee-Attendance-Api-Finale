@@ -68,7 +68,15 @@ builder.Services.AddCors(options =>
 });
 
 // Configure Database
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+if (string.IsNullOrEmpty(dbPassword))
+{
+    throw new InvalidOperationException("DB_PASSWORD environment variable is not set.");
+}
+Console.WriteLine($"DB_PASSWORD: {dbPassword}");
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    .Replace("${DB_PASSWORD}", dbPassword);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
