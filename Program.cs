@@ -123,7 +123,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowAll");
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080"; 
-app.Urls.Add($"http://*:{port}")
+app.Urls.Add($"http://*:{port}"); 
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
