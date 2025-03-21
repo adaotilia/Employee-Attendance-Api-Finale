@@ -24,7 +24,6 @@ namespace Employee_Attendance_Api.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasPrecision(3)
                         .HasColumnType("int")
                         .HasColumnName("Id")
                         .HasAnnotation("DatabaseGenerated", DatabaseGeneratedOption.Identity);
