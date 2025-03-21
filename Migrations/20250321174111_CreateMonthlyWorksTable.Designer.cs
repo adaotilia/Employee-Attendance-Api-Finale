@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employee_Attendance_Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250320214931_UpdateIdPrecision")]
-    partial class UpdateIdPrecision
+    [Migration("20250321174111_CreateMonthlyWorksTable")]
+    partial class CreateMonthlyWorksTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,10 +27,13 @@ namespace Employee_Attendance_Api.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasPrecision(3)
                         .HasColumnType("int")
                         .HasColumnName("Id")
                         .HasAnnotation("DatabaseGenerated", DatabaseGeneratedOption.Identity);
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int")
+                        .HasColumnName("EmployeeId");
 
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("tinyint(1)")
@@ -52,6 +55,8 @@ namespace Employee_Attendance_Api.Migrations
                         .HasColumnName("Username");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Employees");
                 });
@@ -106,6 +111,17 @@ namespace Employee_Attendance_Api.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("WorkHours");
+                });
+
+            modelBuilder.Entity("Employee_Attendance_Api.Models.Employee", b =>
+                {
+                    b.HasOne("Employee_Attendance_Api.Models.Employee", "Manager")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("Employee_Attendance_Api.Models.MonthlyWork", b =>

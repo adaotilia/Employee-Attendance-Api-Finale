@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Employee_Attendance_Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employee_Attendance_Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250321200411_RemoveEmployeeIdFromEmployeeTable")]
+    partial class RemoveEmployeeIdFromEmployeeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,10 +30,6 @@ namespace Employee_Attendance_Api.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Id")
                         .HasAnnotation("DatabaseGenerated", DatabaseGeneratedOption.Identity);
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int")
-                        .HasColumnName("EmployeeId");
 
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("tinyint(1)")
@@ -53,9 +52,7 @@ namespace Employee_Attendance_Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Employee_Attendance_Api.Models.MonthlyWork", b =>
@@ -81,7 +78,7 @@ namespace Employee_Attendance_Api.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("MonthlyWorks", (string)null);
+                    b.ToTable("MonthlyWorks");
                 });
 
             modelBuilder.Entity("Employee_Attendance_Api.Models.WorkHours", b =>
@@ -107,18 +104,7 @@ namespace Employee_Attendance_Api.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("WorkHours", (string)null);
-                });
-
-            modelBuilder.Entity("Employee_Attendance_Api.Models.Employee", b =>
-                {
-                    b.HasOne("Employee_Attendance_Api.Models.Employee", "Manager")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Manager");
+                    b.ToTable("WorkHours");
                 });
 
             modelBuilder.Entity("Employee_Attendance_Api.Models.MonthlyWork", b =>

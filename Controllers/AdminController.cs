@@ -235,6 +235,39 @@ namespace Employee_Attendance_Api.Controllers
                 DailyStats = dailyStats
             });
         }
+
+        [HttpDelete("delete-work-hours/{id}")]
+        public async Task<IActionResult> DeleteWorkHours(int id)
+        {
+            var workHours = await _context.WorkHours.FindAsync(id);
+            if (workHours == null)
+            {
+                return NotFound("Munkaórák nem találhatóak!");
+            }
+
+            _context.WorkHours.Remove(workHours);
+            await _context.SaveChangesAsync();
+
+            return Ok("Munkaórák sikeresen törölve!");
+        }
+
+        [HttpPut("update-work-hours/{id}")]
+        public async Task<IActionResult> UpdateWorkHours(int id, [FromBody] AddWorkHoursRequest request)
+        {
+            var workHours = await _context.WorkHours.FindAsync(id);
+            if (workHours == null)
+            {
+                return NotFound("Munkaórák nem találhatóak!");
+            }
+
+            workHours.EmployeeId = request.EmployeeId;
+            workHours.CheckIn = request.CheckIn;
+            workHours.CheckOut = request.CheckOut;
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Munkaórák sikeresen módosítva!");
+        }
     }
 
     public class UpdateEmployeeRequest

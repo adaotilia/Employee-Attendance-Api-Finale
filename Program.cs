@@ -111,7 +111,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment()|| true)
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
@@ -130,6 +130,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGet("/", () => Results.Redirect("/swagger"));
+app.MapGet("/", () => Results.Redirect("/index.html"));
 
 app.Run();

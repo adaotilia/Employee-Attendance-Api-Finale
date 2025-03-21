@@ -5,7 +5,7 @@
 namespace Employee_Attendance_Api.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateIdPrecision : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
