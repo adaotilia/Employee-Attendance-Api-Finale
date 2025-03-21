@@ -28,10 +28,6 @@ namespace Employee_Attendance_Api.Migrations
                         .HasColumnName("Id")
                         .HasAnnotation("DatabaseGenerated", DatabaseGeneratedOption.Identity);
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int")
-                        .HasColumnName("EmployeeId");
-
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("tinyint(1)")
                         .HasColumnName("IsAdmin");
@@ -53,9 +49,7 @@ namespace Employee_Attendance_Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Employee_Attendance_Api.Models.MonthlyWork", b =>
@@ -81,7 +75,7 @@ namespace Employee_Attendance_Api.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("MonthlyWorks", (string)null);
+                    b.ToTable("MonthlyWorks");
                 });
 
             modelBuilder.Entity("Employee_Attendance_Api.Models.WorkHours", b =>
@@ -107,18 +101,7 @@ namespace Employee_Attendance_Api.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("WorkHours", (string)null);
-                });
-
-            modelBuilder.Entity("Employee_Attendance_Api.Models.Employee", b =>
-                {
-                    b.HasOne("Employee_Attendance_Api.Models.Employee", "Manager")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Manager");
+                    b.ToTable("WorkHours");
                 });
 
             modelBuilder.Entity("Employee_Attendance_Api.Models.MonthlyWork", b =>
