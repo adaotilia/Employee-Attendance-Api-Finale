@@ -20,7 +20,7 @@ namespace Employee_Attendance_Api.Controllers
         }
 
         // Dolgozó elkezdi a munkát
-        [HttpPost("checkin")]
+        [HttpPost("CheckIn")]
         public async Task<ActionResult<WorkHours>> CheckIn()
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
@@ -45,7 +45,7 @@ namespace Employee_Attendance_Api.Controllers
             return Ok(workHours);
         }
 
-        [HttpPost("checkout")]
+        [HttpPost("CheckOut")]
         public async Task<ActionResult<WorkHours>> CheckOut()
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
@@ -95,7 +95,7 @@ namespace Employee_Attendance_Api.Controllers
         }
 
         // Napi munka lekérdezése
-        [HttpGet("current")]
+        [HttpGet("Current")]
         public async Task<ActionResult<object>> GetCurrentSession()
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
@@ -135,7 +135,7 @@ namespace Employee_Attendance_Api.Controllers
             }
         }
 
-        [HttpGet("monthly")]
+        [HttpGet("Monthly")]
         public async Task<ActionResult<object>> GetMonthlyStats()
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
