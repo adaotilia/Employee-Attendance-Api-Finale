@@ -76,7 +76,7 @@ if (string.IsNullOrEmpty(dbPassword))
 Console.WriteLine($"DB_PASSWORD: {dbPassword}");
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    .Replace("${DB_PASSWORD}", dbPassword);
+    ?.Replace("${DB_PASSWORD}", dbPassword) ?? throw new InvalidOperationException("DefaultConnection is not configured.");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
