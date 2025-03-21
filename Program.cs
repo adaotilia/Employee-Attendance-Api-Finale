@@ -81,7 +81,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // Set explicit URL
-builder.WebHost.UseUrls("http://localhost:5245");
+builder.WebHost.UseUrls("http://localhost:5245", "http://0.0.0.0:8080");
 
 var app = builder.Build();
 
